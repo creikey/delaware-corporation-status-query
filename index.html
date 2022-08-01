@@ -1,0 +1,74 @@
+<head>
+    <title>Delaware Entity Information Retrieval Site</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .content {
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div class="content">
+        <h1 style='text-align: center;'>Delaware Entity Information Retrieval Site</h1>
+        <p>
+            Retrieve information on a Delaware entity by keying in the name of the entity. The current status of an
+            entity
+            may be out of date.
+        </p>
+        <input id="input">
+        <button onclick="showLoading(); setTimeout(check, 1000);">Check Status of Company</button>
+        <p> <img id="img" width="20" height="20" src="https://c.tenor.com/K2UGDd4acJUAAAAC/tenor.gif" style="float: left; visibility: hidden;"> <div id="loading"> </div> </p>
+
+        <!-- <div>
+            <p id="loading">
+            <img id="img" style="float: left; margin-right: 10px; visibility: hidden;" width="20" height="20"
+                src="https://c.tenor.com/K2UGDd4acJUAAAAC/tenor.gif">
+            </p>
+        </div> -->
+        <p id="info"></p>
+        <br>
+        <!-- <p id="answer" style="color: red;"></p> -->
+        <p id="answer"></p>
+        <p id="error" style="color: red;"></p>
+    </div>
+    <script>
+        function showLoading() {
+            document.getElementById("img").style.visibility = "visible";
+            document.getElementById("loading").innerHTML = "Loading...";
+        }
+        function check() {
+            document.getElementById("loading").innerHTML = "";
+            document.getElementById("img").style.visibility = "hidden";
+            document.getElementById("answer").innerHTML = "";
+            let company = document.getElementById("input").value.toUpperCase();
+            if (!company.endsWith("INC.")) {
+                document.getElementById("error").innerHTML = "Entity not contained in records";
+                return;
+            } else {
+                document.getElementById("error").innerHTML = "";
+            }
+            document.getElementById("answer").innerHTML = "Entity Name: " + company;
+            let machinery = company.includes("OUR MACHINERY");
+            document.getElementById("answer").innerHTML += "<br>Entity Kind: Corporation<br>Residency: Domestic";
+            if (machinery) {
+                document.getElementById("answer").innerHTML += "<br>Stated Capacity of Operation: SOFTWARE, INTERACTIVE";
+            } else {
+                document.getElementById("answer").innerHTML += "<br>Stated Capacity of Operation: UNKNOWN";
+            }
+            if (machinery) {
+                document.getElementById("answer").innerHTML += "<br>Entity Status: Insolvent";
+            } else {
+                document.getElementById("answer").innerHTML += "<br>Entity Status: Incorporated";
+            }
+        }
+    </script>
+</body>
